@@ -76,6 +76,14 @@ export const friendsData: FriendItem[] = [
 		siteurl: "https://developer.mozilla.org",
 		tags: ["Docs", "Reference"],
 	},
+	{
+		id: 9,
+		title: "Dian66",
+		imgurl: "https://dian66y.top/dian66-favicon.png",
+		desc: "Dian66 的个人博客",
+		siteurl: "https://dian66y.top/",
+		tags: ["博客"],
+	},
 ];
 
 // 获取所有友情链接数据
