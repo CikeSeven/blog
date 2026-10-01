@@ -1,20 +1,12 @@
-// Skill data configuration file
-// Used to manage data for the skill display page
+/**
+ * 技能页数据源（纯内容）。
+ * 页面展示与筛选规则由 src/config/skillsConfig.ts 控制。
+ */
+import type { SkillItem } from "@/types/skillsConfig";
 
-export interface Skill {
-	id: string;
-	name: string;
-	description: string;
-	icon: string; // Iconify icon name
-	category: "frontend" | "backend" | "database" | "tools" | "other";
-	level: "beginner" | "intermediate" | "advanced" | "expert";
-	experience: {
-		years: number;
-		months: number;
-	};
-	projects?: string[]; // Related project IDs
-	certifications?: string[];
-	color?: string; // Skill card theme color
+export const skillsData: SkillItem[] = [];
+
+/** 获取所有技能数据列表 */
+export function getSkillsList(): SkillItem[] {
+	return skillsData;
 }
-
-export const skillsData: Skill[] = [];
