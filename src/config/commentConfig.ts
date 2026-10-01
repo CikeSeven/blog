@@ -8,8 +8,8 @@ import { withUserConfig } from "../utils/config-overlay.ts";
 /**
  * 评论系统配置单一真源。
  *
- * 遵循「零额外负担」原则：默认全局关闭（enable: false），
- * 在未开启时不产生任何外部网络请求、零额外 DOM 占位与零包体积膨胀。
+ * 遵循「零额外负担」原则：关闭或关键配置不完整时，
+ * 不产生任何外部网络请求、零额外 DOM 占位与零包体积膨胀。
  *
  * 【开启 Twikoo 评论配置步骤】
  * 1. 部署 Twikoo 服务端并获取环境 ID（腾讯云 CloudBase / Vercel / Railway / 私有部署等）；
@@ -30,9 +30,9 @@ import { withUserConfig } from "../utils/config-overlay.ts";
  */
 export const commentConfig: CommentConfig = withUserConfig("comment", {
 	/** 全局评论总开关：false 时完全不加载评论脚本与 DOM */
-	enable: false,
+	enable: true,
 	/** 评论提供商类型："none" | "twikoo" | "giscus" */
-	provider: "none",
+	provider: "giscus",
 	/** 是否开启视口懒加载：滚动进入视口才动态加载评论组件（推荐 true） */
 	lazy: true,
 	/** Twikoo 专有配置 */
@@ -49,13 +49,13 @@ export const commentConfig: CommentConfig = withUserConfig("comment", {
 	/** Giscus 专有配置（基于 GitHub Discussions，评论数据存储在公开仓库中） */
 	giscus: {
 		/** 公开仓库，格式 "owner/repo"（必填） */
-		repo: "",
+		repo: "CikeSeven/blog",
 		/** 仓库 ID，从 giscus.app 配置生成器获取（必填） */
-		repoId: "",
+		repoId: "R_kgDOR9Moeg",
 		/** Discussion 分类名，如 "Announcements"；留空表示不限制分类搜索范围 */
 		category: "Announcements",
 		/** 分类 ID，从 giscus.app 配置生成器获取（必填） */
-		categoryId: "",
+		categoryId: "DIC_kwDOR9Moes4DG1Hr",
 		/** 页面 ↔ Discussion 映射：pathname（默认）/ url / title / og:title / specific / number */
 		mapping: "pathname",
 		/** 严格标题匹配（SHA-1 校验），避免 GitHub 模糊搜索误配相似标题 */
