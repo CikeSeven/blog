@@ -21,6 +21,13 @@ Umami 采集和公开数字在 `umamiConfig.ts` 配置，分享 URL 使用实际
 仍使用 Cloudflare Pages：构建 `pnpm build`，输出 `dist`，Node `24`。
 上游部署工作流仅保留不会执行的示例；内容校验流程只允许被显式调用。
 
+源码模式通过 Jiti 独立加载 TypeScript 集成，避免依赖宿主 Node 的类型擦除。
+构建末尾的字体校验脚本使用同一加载方式。
+否则 Astro 回退到临时 Vite runner 后会在读取配置时关闭它，后续
+`astro:config:setup` 中的动态导入报 `Vite module runner has been closed.`。
+`tests/config-loading.test.mjs` 在关闭原生类型擦除的子进程中复现并覆盖此路径；
+所有站点配置仍由同一 `src/integration/` 驱动，npm 模式入口不变。
+
 本站不生成或发布 TypeScript 声明文件，关闭 `declaration`，
 `type-check` 使用 `tsc --noEmit`。
 上游 `--isolatedDeclarations` 在未修改的主题源码中产生 26 个声明生成约束错误；

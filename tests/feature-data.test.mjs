@@ -30,7 +30,11 @@ describe("Feature Data & Resolver Tests", () => {
 			categories: [],
 			disabledKeys: ["folkpatch"],
 		};
-		const resolved = resolveProjectsData(config);
+		const resolved = resolveProjectsData(config, [
+			{ key: "shirone" },
+			{ key: "kernelpatch" },
+			{ key: "folkpatch" },
+		]);
 		assert.ok(resolved.some((p) => p.key === "shirone"));
 		assert.ok(resolved.some((p) => p.key === "kernelpatch"));
 		assert.ok(!resolved.some((p) => p.key === "folkpatch"));
@@ -42,7 +46,10 @@ describe("Feature Data & Resolver Tests", () => {
 			categories: [],
 			disabledNames: ["PHP"],
 		};
-		const resolved = resolveSkillsData(config);
+		const resolved = resolveSkillsData(config, [
+			{ name: "TypeScript" },
+			{ name: "PHP" },
+		]);
 		assert.ok(resolved.some((s) => s.name === "TypeScript"));
 		assert.ok(!resolved.some((s) => s.name === "PHP"));
 	});
@@ -54,9 +61,16 @@ describe("Feature Data & Resolver Tests", () => {
 			order: "asc",
 			disabledTitles: ["Senior Frontend Engineer"],
 		};
-		const resolved = resolveTimelineData(config);
+		const resolved = resolveTimelineData(config, [
+			{ title: "Senior Frontend Engineer", date: "2025.01 – Present" },
+			{ title: "Frontend Engineer", date: "2024.07 – 2024.12" },
+			{
+				title: "Computer Science & Engineering Degree",
+				date: "2020.09 – 2024.06",
+			},
+		]);
 		assert.ok(!resolved.some((t) => t.title === "Senior Frontend Engineer"));
-		// timelineData 中最旧的条目是 2020.09 – 2024.06 (Computer Science & Engineering Degree)
+		// Fixtures are independent of the owner's actual timeline content.
 		assert.equal(resolved[0].title, "Computer Science & Engineering Degree");
 	});
 
@@ -86,7 +100,10 @@ describe("Feature Data & Resolver Tests", () => {
 			categories: [],
 			disabledIds: ["iphone-16-pro"],
 		};
-		const resolved = resolveDevicesData(config);
+		const resolved = resolveDevicesData(config, [
+			{ id: "macbook-pro-16" },
+			{ id: "iphone-16-pro" },
+		]);
 		assert.ok(resolved.some((d) => d.id === "macbook-pro-16"));
 		assert.ok(!resolved.some((d) => d.id === "iphone-16-pro"));
 	});

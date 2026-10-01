@@ -1,9 +1,16 @@
 import { readdir, readFile, stat } from "node:fs/promises";
 import { basename, extname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { resolvedFontOptions } from "../../src/config/fontConfig.ts";
-import { siteConfig } from "../../src/config/siteConfig.ts";
+import { createJiti } from "jiti";
 import { resolveFontAssetPath } from "./asset-path.mjs";
+
+// Match the independent TypeScript loader used by astro.config.mjs so the
+// final build gate also works on hosts without native type stripping.
+const jiti = createJiti(import.meta.url);
+const { resolvedFontOptions } = await jiti.import(
+	"../../src/config/fontConfig.ts",
+);
+const { siteConfig } = await jiti.import("../../src/config/siteConfig.ts");
 
 const projectRoot = fileURLToPath(new URL("../../", import.meta.url));
 const dist = join(projectRoot, "dist");
